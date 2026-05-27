@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": "minecraft:diamond",
+    "I": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "IDI",
+    "D D",
+    "IDI"
+  ],
+  "result": {
+    "id": "examplemod:example_item"
+  }
+}

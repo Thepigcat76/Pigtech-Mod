@@ -1,0 +1,7 @@
+{
+  "block.examplemod.example_block": "Example Block",
+  "creative_tabs.examplemod.main": "Example Mod",
+  "creative_tabs.examplemod.title.example": "Example",
+  "item.examplemod.example_item": "Example Item",
+  "messages.examplemod.nice_message": "Hello, silly :3"
+}
