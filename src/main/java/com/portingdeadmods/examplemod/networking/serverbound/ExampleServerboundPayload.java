@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record ExampleServerboundPayload(int payload) implements CustomPacketPayload {
-    public static final Type<ExampleServerboundPayload> TYPE = new Type<>(ExampleMod.rl("example_serverbound_payload"));
+    public static final Type<ExampleServerboundPayload> TYPE = new Type<>(ExampleMod.id("example_serverbound_payload"));
     public static final StreamCodec<? super RegistryFriendlyByteBuf, ExampleServerboundPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT,
             ExampleServerboundPayload::payload,

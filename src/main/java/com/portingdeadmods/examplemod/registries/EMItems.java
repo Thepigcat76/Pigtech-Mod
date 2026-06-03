@@ -10,5 +10,6 @@ public final class EMItems {
     public static final PDLDeferredRegisterItems ITEMS = PDLDeferredRegisterItems.createItemsRegister(ExampleMod.MODID);
 
     public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerItem("example_item", Item::new);
+    public static final DeferredItem<Item> CONSTRUCTOR = ITEMS.registerItem("constructor", Item::new);
 
 }

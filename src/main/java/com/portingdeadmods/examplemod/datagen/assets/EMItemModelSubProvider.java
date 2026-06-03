@@ -28,11 +28,16 @@ public class EMItemModelSubProvider {
         EMBlocks.BLOCKS.getBlockItems().stream().map(Supplier::get).map(BlockItem::getBlock).forEach(block -> emitSimpleBlockItem(models, block, block.asItem()));
 
         emitFlatItem(models, EMItems.EXAMPLE_ITEM);
+        emitExistingModelItem(models, EMItems.CONSTRUCTOR);
     }
 
     public void emitFlatItem(ItemModelGenerators generators, ItemLike item) {
         Identifier identifier = ModelTemplates.FLAT_ITEM.create(item.asItem(), TextureMapping.layer0(item.asItem()), generators.modelOutput);
         generators.itemModelOutput.accept(item.asItem(), ItemModelUtils.plainModel(identifier));
+    }
+
+    public void emitExistingModelItem(ItemModelGenerators generators, ItemLike item) {
+        generators.itemModelOutput.accept(item.asItem(), ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item.asItem())));
     }
 
     private static void emitSimpleBlockItem(ItemModelGenerators itemModelGenerators, Block block, Item blockItem) {

@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record ExampleBidirectionalPayload(int payload) implements CustomPacketPayload {
-    public static final Type<ExampleBidirectionalPayload> TYPE = new Type<>(ExampleMod.rl("example_bidirectional_payload"));
+    public static final Type<ExampleBidirectionalPayload> TYPE = new Type<>(ExampleMod.id("example_bidirectional_payload"));
     public static final StreamCodec<? super RegistryFriendlyByteBuf, ExampleBidirectionalPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT,
             ExampleBidirectionalPayload::payload,

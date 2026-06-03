@@ -1,5 +1,8 @@
 package com.portingdeadmods.examplemod;
 
+import com.portingdeadmods.examplemod.api.events.RegisterRecipeLayoutEvent;
+import com.portingdeadmods.examplemod.api.recipes.MachineRecipeLayout;
+import com.portingdeadmods.examplemod.impl.recipes.*;
 import com.portingdeadmods.examplemod.registries.*;
 import com.portingdeadmods.portingdeadlibs.api.config.PDLConfigHelper;
 import net.minecraft.resources.Identifier;
@@ -7,6 +10,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -15,6 +20,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
+
+import java.util.function.UnaryOperator;
 
 @Mod(ExampleMod.MODID)
 public final class ExampleMod {
@@ -25,6 +32,8 @@ public final class ExampleMod {
     public ExampleMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::registerPayloads);
         modEventBus.addListener(this::registerCapabilities);
+        modEventBus.addListener(this::registerRecipeLayouts);
+        modEventBus.addListener(this::newRegistries);
 
         EMItems.ITEMS.register(modEventBus);
         EMBlocks.BLOCKS.register(modEventBus);
@@ -32,8 +41,13 @@ public final class ExampleMod {
         EMCreativeTabs.TABS.register(modEventBus);
         EMBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
         EMMenuTypes.MENU_TYPES.register(modEventBus);
+        EMMultiblocks.MULTIBLOCKS.register(modEventBus);
 
         PDLConfigHelper.registerConfig(ExampleModConfig.class, ModConfig.Type.COMMON, modContainer);
+    }
+
+    private void newRegistries(NewRegistryEvent event) {
+        event.register(EMRegistries.MULTIBLOCK);
     }
 
     private void registerPayloads(RegisterPayloadHandlersEvent event) {
@@ -41,10 +55,14 @@ public final class ExampleMod {
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(Capabilities.Item.BLOCK, EMBlockEntityTypes.EXAMPLE.get(), (be, ctx) -> be.getHandlerOnSide(Capabilities.Item.BLOCK,  ctx));
+        event.registerBlockEntity(Capabilities.Item.BLOCK, EMBlockEntityTypes.EXAMPLE.get(), (be, ctx) -> be.getHandlerOnSide(Capabilities.Item.BLOCK, ctx));
     }
 
-    public static Identifier rl(String path) {
+    private void registerRecipeLayouts(RegisterRecipeLayoutEvent event) {
+        EMRecipeLayouts.LAYOUTS.forEach(event::register);
+    }
+
+    public static Identifier id(String path) {
         return Identifier.fromNamespaceAndPath(MODID, path);
     }
 }

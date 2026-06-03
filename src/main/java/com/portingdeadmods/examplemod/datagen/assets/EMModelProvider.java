@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import org.jspecify.annotations.NonNull;
 
 import java.util.stream.Stream;
 
@@ -28,12 +29,12 @@ public final class EMModelProvider extends ModelProvider {
     }
 
     @Override
-    protected Stream<? extends Holder<Block>> getKnownBlocks() {
+    protected @NonNull Stream<? extends Holder<Block>> getKnownBlocks() {
         return Stream.empty();
     }
 
     @Override
-    protected Stream<? extends Holder<Item>> getKnownItems() {
+    protected @NonNull Stream<? extends Holder<Item>> getKnownItems() {
         return Stream.empty();
     }
 }

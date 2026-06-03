@@ -7,14 +7,10 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record ExampleClientboundPayload(int payload) implements CustomPacketPayload {
-    public static final Type<ExampleClientboundPayload> TYPE = new Type<>(ExampleMod.rl("example_clientbound_payload"));
+    public static final Type<ExampleClientboundPayload> TYPE = new Type<>(ExampleMod.id("example_clientbound_payload"));
     public static final StreamCodec<? super RegistryFriendlyByteBuf, ExampleClientboundPayload> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT,
             ExampleClientboundPayload::payload,
